@@ -191,7 +191,7 @@ export default function ContactsScreen() {
       />
       <View style={styles.container}>
         <View style={{ marginLeft: 20 }}>
-          <TouchableOpacity onPress={() => router.navigate("/")}>
+          <TouchableOpacity onPress={() => router.navigate("/team")}>
             <Ionicons name="arrow-back" size={24} color="black" />
           </TouchableOpacity>
         </View>
