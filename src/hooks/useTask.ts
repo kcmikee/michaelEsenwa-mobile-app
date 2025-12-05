@@ -15,7 +15,7 @@ export const useTasks = () => {
       try {
         const data = await taskService.getTasks(filters);
         setTasks(data);
-      } catch (err) {
+      } catch {
         setError("Failed to load tasks");
       } finally {
         setLoading(false);
@@ -34,7 +34,7 @@ export const useTasks = () => {
       const newTask = await taskService.createTask(data);
       setTasks((prev) => [newTask, ...prev]);
       return newTask;
-    } catch (err) {
+    } catch {
       throw new Error("Failed to create task");
     }
   };
@@ -46,7 +46,7 @@ export const useTasks = () => {
         prev.map((task) => (task.id === id ? updatedTask : task))
       );
       return updatedTask;
-    } catch (err) {
+    } catch {
       throw new Error("Failed to update task");
     }
   };
@@ -55,7 +55,7 @@ export const useTasks = () => {
     try {
       await taskService.deleteTask(id);
       setTasks((prev) => prev.filter((task) => task.id !== id));
-    } catch (err) {
+    } catch {
       throw new Error("Failed to delete task");
     }
   };

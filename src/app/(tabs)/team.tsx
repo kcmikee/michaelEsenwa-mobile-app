@@ -77,7 +77,6 @@ export default function TeamScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Team Leader Badge */}
       {teamLeader && showMode === "my-team" && (
         <View style={styles.leaderBadge}>
           <Text style={styles.leaderBadgeIcon}>👑</Text>
@@ -88,7 +87,6 @@ export default function TeamScreen() {
         </View>
       )}
 
-      {/* Toggle Buttons */}
       <View style={styles.toggleContainer}>
         <TouchableOpacity
           style={[

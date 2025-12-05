@@ -15,7 +15,7 @@ export const useTeam = () => {
     try {
       const data = await teamService.getTeamMembers();
       setMembers(data);
-    } catch (err) {
+    } catch {
       setError("Failed to load team members");
     } finally {
       setLoading(false);
@@ -27,7 +27,7 @@ export const useTeam = () => {
     try {
       const data = await teamService.getTeamStats();
       setStats(data);
-    } catch (err) {
+    } catch {
       setError("Failed to load team stats");
     }
   }, []);

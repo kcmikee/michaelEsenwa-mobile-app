@@ -19,8 +19,6 @@ import {
 export default function RegisterScreen() {
   const { inviteCode } = useLocalSearchParams<{ inviteCode?: string }>();
 
-  console.log(inviteCode);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

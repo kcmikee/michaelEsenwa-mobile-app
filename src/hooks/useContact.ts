@@ -13,7 +13,7 @@ export const useContacts = () => {
       const granted = await contactsService.requestPermission();
       setHasPermission(granted);
       return granted;
-    } catch (err) {
+    } catch {
       setError("Failed to request contacts permission");
       return false;
     }
@@ -25,7 +25,7 @@ export const useContacts = () => {
     try {
       const contactsList = await contactsService.getContacts();
       setContacts(contactsList);
-    } catch (err) {
+    } catch {
       setError("Failed to load contacts");
     } finally {
       setLoading(false);
@@ -50,7 +50,7 @@ export const useContacts = () => {
       await contactsService.sendSMS(phone, message);
 
       return invitation;
-    } catch (err) {
+    } catch {
       throw new Error("Failed to send invitation");
     }
   };
