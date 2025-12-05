@@ -1,15 +1,16 @@
 {
   "expo": {
-    "name": "michaelEsenwa-mobile-app",
-    "slug": "michaelEsenwa-mobile-app",
+    "name": "teamapp",
+    "slug": "teamapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "michaelesenwamobileapp",
+    "scheme": "teamapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.panera.teamapp"
     },
     "android": {
       "adaptiveIcon": {
