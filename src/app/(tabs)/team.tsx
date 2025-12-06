@@ -35,7 +35,7 @@ export default function TeamScreen() {
     refetch: refetchTeam,
   } = useMyTeam();
   const { data: teamLeader, refetch } = useTeamLeader();
-  console.log({ teamLeader });
+
   const [refreshing, setRefreshing] = useState(false);
 
   const isLoading = showMode === "my-team" ? loadingTeam : loadingInvites;

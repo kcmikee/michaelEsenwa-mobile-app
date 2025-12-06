@@ -18,8 +18,8 @@ import { COLORS, SPACING } from "@/src/constants";
 import {
   useCreateTask,
   useDeleteTask,
+  useMyTeam,
   useTasks,
-  useTeamMembers,
   useUpdateTask,
 } from "@/src/hooks/useQueries";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -48,7 +48,14 @@ export default function CreateTaskScreen() {
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const { data: teamMembers, isLoading: loadingMembers } = useTeamMembers();
+  // const { data: teamMembers, isLoading: loadingMembers } = useTeamMembers();
+
+  const {
+    data: teamMembers,
+    isLoading: loadingTeam,
+    // error: errorTeam,
+    // refetch: refetchTeam,
+  } = useMyTeam();
   const createTask = useCreateTask();
   const updateTask = useUpdateTask();
   const deleteTask = useDeleteTask();
@@ -134,7 +141,7 @@ export default function CreateTaskScreen() {
     setDueDate(undefined);
   };
 
-  if (loadingMembers) {
+  if (loadingTeam) {
     return (
       <>
         <Stack.Screen
