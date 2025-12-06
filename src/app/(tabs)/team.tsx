@@ -34,8 +34,8 @@ export default function TeamScreen() {
     error: errorTeam,
     refetch: refetchTeam,
   } = useMyTeam();
-  const { data: teamLeader } = useTeamLeader();
-
+  const { data: teamLeader, refetch } = useTeamLeader();
+  console.log({ teamLeader });
   const [refreshing, setRefreshing] = useState(false);
 
   const isLoading = showMode === "my-team" ? loadingTeam : loadingInvites;
@@ -44,6 +44,7 @@ export default function TeamScreen() {
 
   const handleRefresh = async () => {
     setRefreshing(true);
+    await refetch();
     if (showMode === "my-team") {
       await refetchTeam();
     } else {
@@ -77,6 +78,7 @@ export default function TeamScreen() {
         </TouchableOpacity>
       </View>
 
+      {/* Team Leader Badge */}
       {teamLeader && showMode === "my-team" && (
         <View style={styles.leaderBadge}>
           <Text style={styles.leaderBadgeIcon}>👑</Text>
@@ -87,6 +89,7 @@ export default function TeamScreen() {
         </View>
       )}
 
+      {/* Toggle Buttons */}
       <View style={styles.toggleContainer}>
         <TouchableOpacity
           style={[
@@ -143,7 +146,6 @@ export default function TeamScreen() {
             <TeamMemberCard
               member={item}
               onPress={(member) => {
-                console.log(item?.role);
                 if (item?.role === "leader") {
                   router.push({
                     pathname: "/tasks",

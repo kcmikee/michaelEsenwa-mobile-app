@@ -5,8 +5,8 @@ import { TaskCard } from "@/src/components/TaskCard";
 import { COLORS, SPACING } from "@/src/constants";
 import { useTasks, useUpdateTask } from "@/src/hooks/useQueries";
 import { Task } from "@/src/types";
-import { router, useLocalSearchParams } from "expo-router";
-import React, { useState } from "react";
+import { router, useLocalSearchParams, usePathname } from "expo-router";
+import React, { useMemo, useState } from "react";
 import {
   FlatList,
   RefreshControl,
@@ -22,6 +22,7 @@ export default function TasksScreen() {
     assignedTo?: string;
     status?: string;
   }>();
+  const pathname = usePathname();
   const [filter, setFilter] = useState<"all" | "pending" | "completed">("all");
 
   const filterParams = {
@@ -49,6 +50,17 @@ export default function TasksScreen() {
     } catch (err) {
       console.error("Failed to update task:", err);
     }
+  };
+
+  const hasActiveFilters = useMemo(() => {
+    return filter !== "all" || params.assignedTo || params.status;
+  }, [filter, params.assignedTo, params.status]);
+
+  const handleClearFilters = () => {
+    setFilter("all");
+    // @ts-ignore
+    router.replace(pathname);
+    handleRefresh();
   };
 
   const FilterButton = ({
@@ -103,6 +115,14 @@ export default function TasksScreen() {
           <FilterButton title="All" value="all" />
           <FilterButton title="Pending" value="pending" />
           <FilterButton title="Completed" value="completed" />
+          {hasActiveFilters && (
+            <TouchableOpacity
+              style={styles.clearButton}
+              onPress={handleClearFilters}
+            >
+              <Text style={styles.clearButtonText}>Clear</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         <FlatList
@@ -190,6 +210,7 @@ const styles = StyleSheet.create({
     padding: SPACING.md,
     gap: SPACING.sm,
     backgroundColor: COLORS.background,
+    alignItems: "center",
   },
   filterButton: {
     flex: 1,
@@ -208,6 +229,20 @@ const styles = StyleSheet.create({
   },
   filterButtonTextActive: {
     color: COLORS.background,
+  },
+  clearButton: {
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+    borderRadius: 8,
+    backgroundColor: COLORS.gray + "20",
+    alignItems: "center",
+    justifyContent: "center",
+    minWidth: 60,
+  },
+  clearButtonText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: COLORS.gray,
   },
   emptyContainer: {
     flex: 1,
